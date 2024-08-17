@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'appbar_widget.dart';
 import 'menu_sidebar.dart';
 import 'content_widget.dart';
 
