@@ -27,9 +27,13 @@ jobs:
     - name: Build web app
       run: flutter build web --release --base-href="/frontend_schoolsoft/"
 
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
+    - name: Deploy to S3
+      uses: jakejarvis/s3-sync-action@v1
       with:
-        github_token: ${{ secrets.GH_PAGES_TOKEN }}
-        publish_dir: build/web
-        
+        args: --acl public-read --delete
+        source_dir: build/web
+      env:
+        AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }} # Nombre del bucket S3
+        AWS_REGION: ${{ secrets.AWS_REGION }} # Región del bucket S3
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
