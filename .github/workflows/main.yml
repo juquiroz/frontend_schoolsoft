@@ -27,12 +27,14 @@ jobs:
     - name: Build web app
       run: flutter build web --release --base-href="/frontend_schoolsoft/"
 
+    - name: Install AWS CLI
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y awscli
+
     - name: Upload to S3
-      uses: jakejarvis/s3-sync-action@master
-      with:
-        args: --exact-timestamps --delete
-        source_dir: /build/web  # Especifica el directorio de origen
-        dest_dir: '/'          # Especifica el directorio de destino en el bucket
+      run: |
+        aws s3 sync build/web s3://$AWS_S3_BUCKET/frontend_schoolsoft/ --exact-timestamps --delete
       env:
         AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
         AWS_REGION: ${{ secrets.AWS_REGION }}
