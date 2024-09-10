@@ -34,7 +34,7 @@ jobs:
 
     - name: Upload to S3
       run: |
-        aws s3 sync build/web s3://$AWS_S3_BUCKET/frontend_schoolsoft/ --exact-timestamps --delete
+        aws s3 sync build/web s3://$AWS_S3_BUCKET/ --exact-timestamps --delete
       env:
         AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
         AWS_REGION: ${{ secrets.AWS_REGION }}
