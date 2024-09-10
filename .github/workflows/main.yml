@@ -32,3 +32,6 @@ jobs:
 
     - name: directorio
       run: pwd
+  
+    - name: directorio
+      run: ls -ltrh
