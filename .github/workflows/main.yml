@@ -31,7 +31,7 @@ jobs:
       uses: jakejarvis/s3-sync-action@master
       with:
         args: --exact-timestamps --delete
-        source_dir: build/web  # Especifica el directorio de origen
+        source_dir: /build/web  # Especifica el directorio de origen
         dest_dir: '/'          # Especifica el directorio de destino en el bucket
       env:
         AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
