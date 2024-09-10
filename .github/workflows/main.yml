@@ -27,17 +27,12 @@ jobs:
     - name: Build web app
       run: flutter build web --release --base-href="/frontend_schoolsoft/"
 
-    - name: Prepare deployment directory
-      run: |
-        mkdir -p temp_dir
-        cp -r build/web/* temp_dir/
-        ls -la temp_dir
-
     - name: Upload to S3
-      uses: jakejarvis/s3-sync-action@v0.5.1
+      uses: jakejarvis/s3-sync-action@master
       with:
         args: --exact-timestamps --delete
-        source_dir: temp_dir
+        source_dir: build/web  # Especifica el directorio de origen
+        dest_dir: '/'          # Especifica el directorio de destino en el bucket
       env:
         AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
         AWS_REGION: ${{ secrets.AWS_REGION }}
