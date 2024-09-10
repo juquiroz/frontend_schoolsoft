@@ -27,10 +27,13 @@ jobs:
     - name: Build web app
       run: flutter build web --release --base-href="/frontend_schoolsoft/"
 
+    - name: Change directory to build/web
+      run: cd build/web
+
     - name: Deploy to S3
       uses: jakejarvis/s3-sync-action@v0.5.1
       with:
-        args: build/web/ s3://${{ secrets.AWS_S3_BUCKET }}/frontend_schoolsoft/ --exact-timestamps --delete
+        args: --exact-timestamps --delete
       env:
         AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }} # Nombre del bucket S3
         AWS_REGION: ${{ secrets.AWS_REGION }} # Región del bucket S3
